@@ -15,14 +15,6 @@ namespace FlightSharpWebSite
         {
         }
 
-        public void GetOneFlightFromFlights(string destination, int flightCounter, Flight currentFlight)
-        {
-            string resp = GetResponseAsString(destination);
-            int numOfFlights = CountResults(resp);
-            var json = JObject.Parse(resp);
-            SetFlight(currentFlight, destination, flightCounter, json);
-        }
-
         private string GetResponseAsString(string destination)
         {
             string baseUrl =
@@ -44,26 +36,7 @@ namespace FlightSharpWebSite
             return resp.Count(f => f == '{') - 3;
         }
 
-        private void SetFlight(Flight current, string airport, int num, JObject jObj)
-        {
-            current.Destination = airport;
-
-            string selectToken = "data.{0}.";
-            selectToken = string.Format(selectToken, airport);
-
-            int fields = 5;
-
-            for (int i = 0; i < fields; i++)
-            {
-                current.PriceHUF = (string) jObj.SelectToken(selectToken + i + ".price");
-                current.Airline = (string) jObj.SelectToken(selectToken + i + ".airline");
-                current.FlightNum = (string) jObj.SelectToken(selectToken + i + ".flight_num");
-                current.DepartureTime = (string) jObj.SelectToken(selectToken + i + ".departure_at");
-                current.ReturnTime = (string) jObj.SelectToken(selectToken + i + ".return_at");
-            }
-        }
-
-        public void GetFlightsFromBUDToBER()
+        /*public void GetFlightsFromBUDToBER()
         {
             var client =
                 new RestClient(
@@ -91,6 +64,45 @@ namespace FlightSharpWebSite
                 var expireAt = (string)json.SelectToken("data.BER." + i + ".expire_at");
 
                 var something = new Flight(price, airline, flightNum, departure, returnTime, expireAt);
+
+                flightList.Add(something);
+            }
+
+            foreach (var flight in flightList)
+            {
+                Console.WriteLine(flight.ToString());
+            }
+        }*/
+
+        public void GetFlightsFromTo(string from, string to)
+        {
+            string url = "https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v1/prices/cheap?destination={0}&origin={1}&currency=HUF&page=None";
+            string exactURL = string.Format(url, to, from);
+
+            var client = new RestClient(exactURL);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-access-token", "237f37871102101c4ec439ba6c98520e");
+            request.AddHeader("x-rapidapi-host", "travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "8cc5a982f3msha7010a92e8c909ap14602cjsneeae413a870c");
+            IRestResponse response = client.Execute(request);
+            var FullJson = response.Content;
+
+            var json = JObject.Parse(FullJson);
+            var allFlights = json["data"][to];
+
+            List<Flight> flightList = new List<Flight>();
+
+            for (int i = 0; i < CountResults(FullJson); i++)
+            {
+                var price = (string)json.SelectToken("data." + to + "." + i + ".price");
+                var airline = (string)json.SelectToken("data." + to + "." + i + ".airline");
+                var flightNum = (string)json.SelectToken("data." + to + "." + i + ".flight_number");
+                var departure = (string)json.SelectToken("data." + to + "." + i + ".departure_at");
+                var returnTime = (string)json.SelectToken("data." + to + "." + i + ".return_at");
+
+                var expireAt = (string)json.SelectToken("data." + to + "." + i + ".expire_at");
+
+                var something = new Flight(price, airline, flightNum, departure, returnTime, expireAt, to);
 
                 flightList.Add(something);
             }

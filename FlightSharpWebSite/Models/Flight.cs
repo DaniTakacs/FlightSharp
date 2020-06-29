@@ -13,13 +13,13 @@ namespace FlightSharpWebSite.Models
         [JsonPropertyName("departure_at")] public string DepartureTime { get; set; }
         [JsonPropertyName("return_at")] public string ReturnTime { get; set; }
         [JsonPropertyName("expire_at")] public string ExpireTime { get; set; }
-        public string Destination { get; set; }
+        [JsonPropertyName("destination")] public string Destination { get; set; }
 
         public override string ToString() => "Flight Number: " + FlightNum + " Date: " + DepartureTime +
                                              " Price in HUF: " + PriceHUF;
 
         public Flight(string priceHuf, string airline, string flightNum, string departureTime, string returnTime,
-            string expireTime)
+            string expireTime, string destination)
         {
             PriceHUF = priceHuf;
             Airline = airline;
@@ -27,6 +27,7 @@ namespace FlightSharpWebSite.Models
             DepartureTime = departureTime;
             ReturnTime = returnTime;
             ExpireTime = expireTime;
+            Destination = destination;
         }
     }
 }
