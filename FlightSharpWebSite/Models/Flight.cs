@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace FlightSharpWebSite.Models
 {
     public class Flight
     {
-        public string Return { get; set; }
-        public string PriceHUF { get; set; }
+        [JsonPropertyName("price")] public string PriceHUF { get; set; }
+        [JsonPropertyName("airline")] public string Airline { get; set; }
+        [JsonPropertyName("flight_number")] public string FlightNum { get; set; }
+        [JsonPropertyName("departure_at")] public string DepartureTime { get; set; }
+        [JsonPropertyName("return_at")] public string ReturnTime { get; set; }
+        [JsonPropertyName("expire_at")] public string ExpireTime { get; set; }
         public string Destination { get; set; }
-        public string Departure { get; set; }
-        public string FlightNo { get; set; }
 
-        public string AirLine { get; set; }
+        public override string ToString() => "Flight Number: " + FlightNum + " Date: " + DepartureTime +
+                                             " Price in HUF: " + PriceHUF;
 
-
-        public Flight()
+        public Flight(string priceHuf, string airline, string flightNum, string departureTime, string returnTime,
+            string expireTime)
         {
-
+            PriceHUF = priceHuf;
+            Airline = airline;
+            FlightNum = flightNum;
+            DepartureTime = departureTime;
+            ReturnTime = returnTime;
+            ExpireTime = expireTime;
         }
-
-        public override string ToString() => "Flight Number: " + FlightNo + " Date: " + Return + " Start: " + Departure + " Destination: " +
-                                             Destination + " Price in HUF: " + PriceHUF;
-
-
-        public string ToJson() => JsonSerializer.Serialize<Flight>(this);
     }
 }

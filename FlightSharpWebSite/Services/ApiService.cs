@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FlightSharpWebSite
@@ -9,9 +10,9 @@ namespace FlightSharpWebSite
     public class ApiService
     {
         public int FlightsCounted { get; private set; }
+
         public ApiService()
         {
-
         }
 
         public void GetOneFlightFromFlights(string destination, int flightCounter, Flight currentFlight)
@@ -24,7 +25,8 @@ namespace FlightSharpWebSite
 
         private string GetResponseAsString(string destination)
         {
-            string baseUrl = "https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v1/prices/cheap?destination={0}&origin=BUD&currency=HUF&page=None";
+            string baseUrl =
+                "https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v1/prices/cheap?destination={0}&origin=BUD&currency=HUF&page=None";
             string url = string.Format(baseUrl, destination);
             var client = new RestClient(url);
             var request = new RestRequest(Method.GET);
@@ -53,13 +55,50 @@ namespace FlightSharpWebSite
 
             for (int i = 0; i < fields; i++)
             {
-                current.PriceHUF = (string)jObj.SelectToken(selectToken + i + ".price");
-                current.AirLine = (string)jObj.SelectToken(selectToken + i + ".airline");
-                current.FlightNo = (string)jObj.SelectToken(selectToken + i + ".flight_num");
-                current.Departure = (string)jObj.SelectToken(selectToken + i + ".departure_at");
-                current.Return = (string)jObj.SelectToken(selectToken + i + ".return_at");
+                current.PriceHUF = (string) jObj.SelectToken(selectToken + i + ".price");
+                current.Airline = (string) jObj.SelectToken(selectToken + i + ".airline");
+                current.FlightNum = (string) jObj.SelectToken(selectToken + i + ".flight_num");
+                current.DepartureTime = (string) jObj.SelectToken(selectToken + i + ".departure_at");
+                current.ReturnTime = (string) jObj.SelectToken(selectToken + i + ".return_at");
+            }
+        }
+
+        public void GetFlightsFromBUDToBER()
+        {
+            var client =
+                new RestClient(
+                    "https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v1/prices/cheap?destination=BER&origin=BUD&currency=HUF&page=None");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-access-token", "237f37871102101c4ec439ba6c98520e");
+            request.AddHeader("x-rapidapi-host", "travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "8cc5a982f3msha7010a92e8c909ap14602cjsneeae413a870c");
+            IRestResponse response = client.Execute(request);
+            var FullJson = response.Content;
+
+            var json = JObject.Parse(FullJson);
+            var allBerlinFlights = json["data"]["BER"];
+
+            List<Flight> flightList = new List<Flight>();
+
+            for (int i = 0; i < allBerlinFlights.Count(); i++)
+            {
+                var price = (string)json.SelectToken("data.BER." + i + ".price");
+                var airline = (string)json.SelectToken("data.BER." + i + ".airline");
+                var flightNum = (string)json.SelectToken("data.BER." + i + ".flight_number");
+                var departure = (string)json.SelectToken("data.BER." + i + ".departure_at");
+                var returnTime = (string)json.SelectToken("data.BER." + i + ".return_at");
+                ;
+                var expireAt = (string)json.SelectToken("data.BER." + i + ".expire_at");
+
+                var something = new Flight(price, airline, flightNum, departure, returnTime, expireAt);
+
+                flightList.Add(something);
             }
 
+            foreach (var flight in flightList)
+            {
+                Console.WriteLine(flight.ToString());
+            }
         }
     }
 }
