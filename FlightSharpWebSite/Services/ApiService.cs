@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleApiResult
+namespace FlightSharpWebSite.Services
 {
     public class ApiService
     {
