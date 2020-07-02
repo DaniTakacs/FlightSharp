@@ -58,7 +58,7 @@ namespace FlightSharpWebSite
             var flightsJson = json["data"][destination].ToString();
             IEnumerable<Flight> flights = JsonConvert.DeserializeObject<Dictionary<string, Flight>>(flightsJson)
                 .Select(kvp => kvp.Value);
-            return from flight in flights where flight.Departure == departureTime select flight;
+            return from flight in flights where flight.Departure >= departureTime select flight;
         }
     }
 
