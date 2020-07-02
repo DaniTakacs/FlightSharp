@@ -50,6 +50,16 @@ namespace FlightSharpWebSite
                 .Select(kvp => kvp.Value);
             return from flight in flights where flight.PriceHUF <= maxPrice select flight;
         }
+
+        public IEnumerable<Flight> GetFlights(string origin, string destination, string currency, DateTime departureTime)
+        {
+            var resp = _client.GetFlights(origin, destination, currency);
+            var json = JObject.Parse(resp);
+            var flightsJson = json["data"][destination].ToString();
+            IEnumerable<Flight> flights = JsonConvert.DeserializeObject<Dictionary<string, Flight>>(flightsJson)
+                .Select(kvp => kvp.Value);
+            return from flight in flights where flight.Departure == departureTime select flight;
+        }
     }
 
     public interface IFlightApiService
@@ -57,6 +67,9 @@ namespace FlightSharpWebSite
         public IEnumerable<Flight> GetFlights(string origin, string destination);
         public IEnumerable<Flight> GetFlights(string origin, string destination, string currency);
         public IEnumerable<Flight> GetFlights(string origin, string destination, string currency, int maxPrice);
+
+        public IEnumerable<Flight> GetFlights(string origin, string destination, string currency,
+            DateTime departureTime);
 
     }
 }
