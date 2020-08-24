@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    var user = ViewData["Profile"] as FlightSharpWebSite.Models.User;
+}
+
+<link href="@Url.Content("~/css/profile.css")" rel="stylesheet" type="text/css" />
+<div class="table-box">
+    <div class="table-row table-head">
+        <div class="table-cell last-cell">
+            <p>Profile Information</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>First Name</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>@user.FristName</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Last Name</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>@user.LastName</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>E-mail</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>@user.Email</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>place</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>holder</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>place</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>holder</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>place</p>
+        </div>
+        <div class="table-cell last-cell">
+            <p>holder</p>
+        </div>
+    </div>
+</div>
