@@ -3,6 +3,9 @@
     ViewData["Title"] = "Profile";
     var user = ViewData["Profile"] as FlightSharpWebSite.Models.User;
 }
+@section scripts{
+    <script src="@Url.Content("~/js/profileEdit.js")" type="text/javascript" defer></script>
+}
 
 <link href="@Url.Content("~/css/profile.css")" rel="stylesheet" type="text/css" />
 <div class="table-box">
@@ -15,15 +18,15 @@
         <div class="table-cell first-cell">
             <p>First Name</p>
         </div>
-        <div class="table-cell last-cell">
-            <p>@user.FristName</p>
+        <div class="table-cell last-cell" id="fn" contenteditable="true">
+            @user.FristName
         </div>
     </div>
     <div class="table-row">
         <div class="table-cell first-cell">
             <p>Last Name</p>
         </div>
-        <div class="table-cell last-cell">
+        <div class="table-cell last-cell" id="ln" contenteditable="true">
             <p>@user.LastName</p>
         </div>
     </div>
@@ -31,8 +34,8 @@
         <div class="table-cell first-cell">
             <p>E-mail</p>
         </div>
-        <div class="table-cell last-cell">
-            <p>@user.Email</p>
+        <div class="table-cell last-cell" id="email" contenteditable="true">
+            @user.Email
         </div>
     </div>
     <div class="table-row">
@@ -59,4 +62,7 @@
             <p>holder</p>
         </div>
     </div>
+</div>
+<div id="buttonDiv">
+     <button type="button" id="saveBtn">Save</button>
 </div>
