@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using FlightSharpWebSite.Models;
+﻿using FlightSharpWebSite.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlightSharpWebSite.Data
@@ -16,10 +16,18 @@ namespace FlightSharpWebSite.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() }
+                );
+
             modelBuilder.Entity<WebUser>()
                 .HasOne<UserAccount>(fk => fk.UserAccount)
                 .WithOne(ad => ad.WebUser)
-                .HasForeignKey<UserAccount>(ad => ad.WebUserId); 
+                .HasForeignKey<UserAccount>(ad => ad.WebUserId);
+
         }
     }
 }

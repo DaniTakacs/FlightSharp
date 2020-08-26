@@ -1,8 +1,6 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FlightSharpWebSite.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlightSharpWebSite.Data
 {
@@ -17,21 +15,23 @@ namespace FlightSharpWebSite.Data
                 return;
             }
 
+            var hasher = new PasswordHasher<WebUser>();
+
             var webUsers = new WebUser[]
             {
                 new WebUser
                 {
                     Email="testmintaanna@gmail.com",
-                    PasswordHashed="atmNotHashed1",
+                    PasswordHashed= hasher.HashPassword(null, "mintaanna"),
                     Salt="salt1",
                     UserAccount = new UserAccount{UserName="MintaAnna"},
                 },
                 new WebUser
                 {
                     Email = "testadminpeter@gmail.com",
-                    PasswordHashed = "atmNotHashed2",
+                    PasswordHashed = hasher.HashPassword(null, "adminpeter"),
                     Salt = "salt2",
-                    UserAccount = new UserAccount{UserName="AdminPeter", WebUserId=2},
+                    UserAccount = new UserAccount{UserName="AdminPeter"},
                 },
             };
 
