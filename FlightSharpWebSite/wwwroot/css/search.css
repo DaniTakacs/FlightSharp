@@ -17,7 +17,8 @@ h1 {
 }
 
 .mainDiv {
-    width: 90%
+    width: 90%;
+    display: flex;
 }
 
 #showResults {
@@ -55,7 +56,7 @@ h1 {
 .divInputs {
     display: inline-block;
     font-family: sans-serif;
-    width: 30%;
+    width: 35%;
     height: 35%;
     border-radius: 15px 35px 30px;
     padding: 12px 0;

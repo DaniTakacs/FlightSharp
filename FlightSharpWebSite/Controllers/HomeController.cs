@@ -48,9 +48,7 @@ namespace FlightSharpWebSite.Controllers
         public IActionResult Profile()
         {
             User user = new User();
-            user.FristName = "Olic";
-            user.LastName = "G";
-            user.Email = "gaowaak@gmail.com";
+            user.initHardcodedUser();
             ViewData["Profile"] = user;
             return View();
         }

@@ -23,16 +23,18 @@ function save() {
     let newEmail = document.getElementById("email").textContent.replace(/\s/g, '');
 
     if (prevFirstName != newFN || prevLastName != newLN || prevEmail != newEmail) {
-        var jsonToPost =
-        {
-            "firstName": newFN,
-            "lastName": newLN,
-            "email": newEmail
-        }
+        if (validateEmail(newEmail)) {
+            var jsonToPost =
+            {
+                "firstName": newFN,
+                "lastName": newLN,
+                "email": newEmail
+            }
 
-        makePostRequest("api/profile", JSON.stringify(jsonToPost));
-        console.log(jsonToPost);
-        console.log("changes saved");
+            makePostRequest("api/profile", JSON.stringify(jsonToPost));
+            console.log(jsonToPost);
+            console.log("changes saved");
+        }
     }
     else {
         console.log("nothing to change");
@@ -48,6 +50,11 @@ function makePostRequest(whereToSend, whatToSend) {
         },
         body: whatToSend
     })
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 // TODO check proper inputs, length, email with regex, no whitespace
