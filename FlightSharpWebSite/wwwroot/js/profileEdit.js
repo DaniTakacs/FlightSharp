@@ -31,6 +31,8 @@ function save() {
                 "email": newEmail
             }
 
+            updateFields(newFN, newLN, newEmail);
+
             makePostRequest("api/profile", JSON.stringify(jsonToPost));
             console.log(jsonToPost);
             console.log("changes saved");
@@ -55,6 +57,12 @@ function makePostRequest(whereToSend, whatToSend) {
 function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+}
+
+function updateFields(firstN, lastN, email) {
+    prevFirstName = firstN;
+    prevLastName = lastN;
+    prevEmail = email;
 }
 
 // TODO check proper inputs, length, email with regex, no whitespace
