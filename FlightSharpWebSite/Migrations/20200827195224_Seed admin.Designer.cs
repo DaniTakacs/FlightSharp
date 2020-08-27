@@ -4,14 +4,16 @@ using FlightSharpWebSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightSharpWebSite.Migrations
 {
     [DbContext(typeof(FlightSharpWebSiteContext))]
-    partial class FlightSharpWebSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20200827195224_Seed admin")]
+    partial class Seedadmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
