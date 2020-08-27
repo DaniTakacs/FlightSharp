@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlightSharpWebSite.Data;
 using FlightSharpWebSite.Models;
 using FlightSharpWebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -48,6 +51,14 @@ namespace FlightSharpWebSite
             });
 
             services.AddControllersWithViews();
+
+            services.AddDbContext<FlightSharpWebSiteContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("FlightSharpWebSiteContextConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<FlightSharpWebSiteContext>();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +81,7 @@ namespace FlightSharpWebSite
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
 
             app.UseEndpoints(endpoints =>
@@ -77,6 +89,7 @@ namespace FlightSharpWebSite
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
