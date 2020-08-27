@@ -55,7 +55,7 @@ namespace FlightSharpWebSite
             services.AddDbContext<FlightSharpWebSiteContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("FlightSharpWebSiteContextConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<FlightSharpWebSiteContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();

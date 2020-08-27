@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlightSharpWebSite.Data
 {
-    public class FlightSharpWebSiteContext : IdentityDbContext<IdentityUser>
+    public class FlightSharpWebSiteContext : IdentityDbContext<ApplicationUser>
     {
         public FlightSharpWebSiteContext(DbContextOptions<FlightSharpWebSiteContext> options)
             : base(options)
