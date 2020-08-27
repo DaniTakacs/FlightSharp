@@ -41,6 +41,10 @@ namespace FlightSharpWebSite
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //services.AddDbContext<ApplicationContext>(option => option.UseInMemoryDatabase(databaseName: "FlightAPI"));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc().AddSessionStateTempDataProvider();
 
             services.AddSession(options =>

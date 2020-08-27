@@ -67,7 +67,8 @@ namespace FlightSharpWebSiteTests
            
             clientService.GetFlights("BUD", destination, "HUF").Returns(response);
 
-            var result = flightApi.GetFlights("BUD", destination, 100);
+
+            var result = flightApi.GetFlights("BUD", destination, price);
             
             Assert.AreEqual(expected.ToJson(), result.First().ToJson());
         }

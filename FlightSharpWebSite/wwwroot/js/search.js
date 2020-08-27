@@ -105,8 +105,9 @@ const createAndSetFlightsHTML = function (arrayOfFlights)
 
     // create table with header
     let table = document.createElement("table");
-    table.className = "divInputs";
+    table.id = "table";
     let header = document.createElement("tr");
+    header.id = "header";
 
     table.appendChild(header);
 
@@ -145,15 +146,15 @@ const createAndSetFlightsHTML = function (arrayOfFlights)
         let nextTR = document.createElement("tr");
 
         let tdForAirLine = document.createElement("td");
-        tdForAirLine.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].airLine)}`));
+        tdForAirLine.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].airLine)}`.split('"').join('')));
         nextTR.appendChild(tdForAirLine);
 
         let tdForOrigin = document.createElement("td");
-        tdForOrigin.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].origin)}`));
+        tdForOrigin.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].origin)}`.split('"').join('')));
         nextTR.appendChild(tdForOrigin);
 
         let tdForDestination = document.createElement("td");
-        tdForDestination.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].destination)}`));
+        tdForDestination.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].destination)}`.split('"').join('')));
         nextTR.appendChild(tdForDestination);
 
         let tdForPrice = document.createElement("td");
@@ -161,11 +162,11 @@ const createAndSetFlightsHTML = function (arrayOfFlights)
         nextTR.appendChild(tdForPrice);
 
         let tdForDeparture = document.createElement("td");
-        tdForDeparture.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].departure)}`));
+        tdForDeparture.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].departure)}`.split('"').join('')));
         nextTR.appendChild(tdForDeparture);
 
         let tdForReturn = document.createElement("td");
-        tdForReturn.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].return)}`));
+        tdForReturn.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].return)}`.split('"').join('')));
         nextTR.appendChild(tdForReturn);
 
         let tdButton = document.createElement("button");
