@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlightSharpWebSite.Data;
 using FlightSharpWebSite.Models;
 using FlightSharpWebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +39,10 @@ namespace FlightSharpWebSite
                 options.CheckConsentNeeded = context => false; // true: consent required
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            //services.AddDbContext<ApplicationContext>(option => option.UseInMemoryDatabase(databaseName: "FlightAPI"));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().AddSessionStateTempDataProvider();
 
