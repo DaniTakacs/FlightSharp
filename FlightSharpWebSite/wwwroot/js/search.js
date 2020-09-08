@@ -105,7 +105,7 @@ const createAndSetFlightsHTML = function (arrayOfFlights)
 
     // create table with header
     let table = document.createElement("table");
-    table.className = "divInputs";
+    table.className = "divResults";
     let header = document.createElement("tr");
 
     table.appendChild(header);

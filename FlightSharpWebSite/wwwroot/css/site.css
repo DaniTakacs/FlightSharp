@@ -55,11 +55,13 @@ button {
     border-color: #9A73A9;
 }
 
-    .btn-primary:hover {
-        color: #EFEFF6;
-        background-color: #5D2971;
-        border-color: #5D2971;
-    }
+.btn-primary:hover {
+    color: #EFEFF6;
+    background-color: #5D2971;
+    border-color: #5D2971;
+}
+
+.table { }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #EFEFF6;
