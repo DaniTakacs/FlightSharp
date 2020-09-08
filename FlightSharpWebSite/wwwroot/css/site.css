@@ -41,7 +41,13 @@ section { color: #efeff6; }
 .footer_item { color: #FEF7E8 }
 
 
+.cart-head { color: #efeff6 }
 
+.cart-row { color: #efeff6 }
+
+.cart-origin { color: #efeff6 }
+
+.cart-item-data { color: #efeff6 }
 
 button {
     border: none;
