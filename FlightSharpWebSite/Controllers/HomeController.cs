@@ -45,6 +45,16 @@ namespace FlightSharpWebSite.Controllers
             return View();
         }
 
+        public IActionResult Profile()
+        {
+            User user = new User();
+            user.FristName = "Olic";
+            user.LastName = "G";
+            user.Email = "gaowaak@gmail.com";
+            ViewData["Profile"] = user;
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
