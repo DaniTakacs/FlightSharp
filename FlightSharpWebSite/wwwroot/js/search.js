@@ -106,7 +106,7 @@ const createAndSetFlightsHTML = function (arrayOfFlights) {
 
     // create table with header
     let table = document.createElement("table");
-    table.className = "table";
+    table.className = "table table-search";
     let header = document.createElement("tr");
 
     table.appendChild(header);
@@ -176,6 +176,7 @@ const createAndSetFlightsHTML = function (arrayOfFlights) {
         tdButton.setAttribute("jsonData", JSON.stringify(arrayOfFlights[i]));
         tdButton.setAttribute("origin", JSON.stringify(arrayOfFlights[i].Origin));
         tdButton.id = "AddBTN";
+        tdButton.style = " margin-bottom: 10px;";
         tdButton.className = "blueBTN";
         tdButton.textContent = "Add";
         nextTR.appendChild(tdButton);

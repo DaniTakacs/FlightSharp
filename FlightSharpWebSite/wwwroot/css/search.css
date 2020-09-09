@@ -28,7 +28,8 @@ button:focus { outline: 0 !important; }
     border: 5px outset transparent;
     background-color: transparent;
     text-align: center;
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 1rem 1rem rgba(10, 1, 0, .1);
+    margin-bottom: 100px;
 }
 
 h1 { color: #efeff6 }
@@ -53,6 +54,7 @@ h1 { color: #efeff6 }
     padding: 14px 40px;
     transition: 0.3s;
     outline: none;
+    font-weight: bold;
 }
 
 .searchBTN:hover {
@@ -72,6 +74,7 @@ h1 { color: #efeff6 }
     padding: 8px 18px;
     border-radius: 8px;
     transition: 0.3s;
+    font-weight: bold;
 }
 
 .blueBTN:hover {
@@ -99,7 +102,7 @@ h1 { color: #efeff6 }
 }
 
 th {
-    background-color: #7A4A8D;
+    background-color: #9A73A9;
     color: white;
 }
 
@@ -108,3 +111,8 @@ tr:nth-child(even) { background-color: #f2f2f2; }
 tr:nth-child(odd) { background-color: #f2f2f2; }
 
 tr:hover { background-color: #f5f5f5; }
+
+.table-search {
+    text-align: center;
+    vertical-align: middle;
+}

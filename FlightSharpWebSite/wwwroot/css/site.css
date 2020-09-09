@@ -7,6 +7,10 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.navbar {
+    background-color: #2E2A45;
+}
+
 /* Provide sufficient contrast against white background */
 
 a {
@@ -39,6 +43,7 @@ label { color: #efeff6; }
 section { color: #efeff6; }
 
 .footer_item { color: #FEF7E8 }
+
 
 
 .cart-head { color: #efeff6 }
@@ -106,6 +111,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: #5A5F82;
 }
 
 .footer {
