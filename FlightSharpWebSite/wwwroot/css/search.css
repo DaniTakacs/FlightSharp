@@ -16,6 +16,8 @@ h1 {
     font-weight: 100;
 }
 
+button:focus { outline: 0 !important; }
+
 .divInputs {
     width: 580px;
     max-width: 580px;
@@ -34,6 +36,12 @@ h1 { color: #efeff6 }
 .input {
     font-size: 14px;
     text-align: center;
+    transition: all .2s ease-in-out;
+}
+
+.input:focus {
+    transform: scale(1.1);
+    outline: 0 !important;
 }
 
 .searchBTN {
@@ -43,6 +51,8 @@ h1 { color: #efeff6 }
     border-color: #9A73A9;
     border-radius: 12px;
     padding: 14px 40px;
+    transition: 0.3s;
+    outline: none;
 }
 
 .searchBTN:hover {
@@ -61,6 +71,7 @@ h1 { color: #efeff6 }
     border-color: #9A73A9;
     padding: 8px 18px;
     border-radius: 8px;
+    transition: 0.3s;
 }
 
 .blueBTN:hover {

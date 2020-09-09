@@ -1,6 +1,9 @@
-﻿var searchBtn = document.getElementById("search");
+﻿
+
+var searchBtn = document.getElementById("search");
 var divForResults = document.getElementById("showResults");
 let buttons;
+
 
 function addEventListeners(buttonsList) {
     buttonsList.forEach(function(currentBtn) {
@@ -9,61 +12,59 @@ function addEventListeners(buttonsList) {
                 var flightData = currentBtn.getAttribute("jsonData");
                 var obj = JSON.parse(flightData);
 
-            var price = obj.priceHUF;
-            var airLine = obj.airLine;
-            var departure = obj.departure;
-            var destination = obj.destination;
-            var expires = obj.expirationDate;
-            var returnDate = obj.return;
-            var flightNum = obj.flightNo;
-            var origin = obj.origin;
+                var price = obj.priceHUF;
+                var airLine = obj.airLine;
+                var departure = obj.departure;
+                var destination = obj.destination;
+                var expires = obj.expirationDate;
+                var returnDate = obj.return;
+                var flightNum = obj.flightNo;
+                var origin = obj.origin;
 
 
-            var jsonToPost =
-            {
-                "Flight": {
-                    "PriceHUF": price,
-                    "AirLine": airLine,
-                    "Return": returnDate,
-                    "Destination": destination,
-                    "FlightNo": flightNum,
-                    "ExpirationDate" : expires,
-                    "Departure": departure,
-                    "Origin": origin
-                },
-                "Quantity": 1
+                var jsonToPost =
+                {
+                    "Flight": {
+                        "PriceHUF": price,
+                        "AirLine": airLine,
+                        "Return": returnDate,
+                        "Destination": destination,
+                        "FlightNo": flightNum,
+                        "ExpirationDate": expires,
+                        "Departure": departure,
+                        "Origin": origin
+                    },
+                    "Quantity": 1
+                }
+
+                makePostRequest("api/cart", JSON.stringify(jsonToPost));
             }
-
-            makePostRequest("api/cart", JSON.stringify(jsonToPost));
-        }
         )
     })
 }
 
-function makePostRequest(whereToSend, whatToSend)
-{
-    fetch(whereToSend, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: whatToSend
-    })
+function makePostRequest(whereToSend, whatToSend) {
+    fetch(whereToSend,
+        {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: whatToSend
+        })
 }
 
 // handling click event on search button, also some input validation
-searchBtn.onclick = function () {
+searchBtn.onclick = function() {
     var from = document.getElementById("from").value.toUpperCase();
     var to = document.getElementById("to").value.toUpperCase();
 
     if (hasNumber(from) || hasNumber(to)) {
         alert("Inputs can not contain numbers!");
-    }
-    else if (from.length != 3 || to.length != 3) {
+    } else if (from.length != 3 || to.length != 3) {
         alert("Both airport codes must be 3 characters long!");
-    }
-    else {
+    } else {
         var toSend = {
             fromPlace: from,
             toPlace: to
@@ -87,25 +88,25 @@ function hasNumber(myString) {
 
 // send GET request to APIController for retrieving flight data
 function GetFlights(fromPlace, toPlace, callback, maxPrice) {
-    fetch(`api/search?origin=${fromPlace}&destination=${toPlace}&price=${maxPrice}`, {
-        method: 'GET',
-        credentials: 'same-origin'
-    })
+    fetch(`api/search?origin=${fromPlace}&destination=${toPlace}&price=${maxPrice}`,
+            {
+                method: 'GET',
+                credentials: 'same-origin'
+            })
         .then(response => response.json())
         .then(json_response => callback(json_response));
 }
 
-const createAndSetFlightsHTML = function (arrayOfFlights)
-{
+const createAndSetFlightsHTML = function (arrayOfFlights) {
 
     // clear previous search results
     while (divForResults.firstChild) {
         divForResults.removeChild(divForResults.firstChild);
-    } 
+    }
 
     // create table with header
     let table = document.createElement("table");
-    table.className = "divResults";
+    table.className = "table";
     let header = document.createElement("tr");
 
     table.appendChild(header);
@@ -145,32 +146,35 @@ const createAndSetFlightsHTML = function (arrayOfFlights)
         let nextTR = document.createElement("tr");
 
         let tdForAirLine = document.createElement("td");
-        tdForAirLine.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].airLine)}`));
+        tdForAirLine.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].airLine).slice(1, -1)}`));
         nextTR.appendChild(tdForAirLine);
 
         let tdForOrigin = document.createElement("td");
-        tdForOrigin.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].origin)}`));
+        tdForOrigin.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].origin).slice(1, -1)}`));
         nextTR.appendChild(tdForOrigin);
 
         let tdForDestination = document.createElement("td");
-        tdForDestination.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].destination)}`));
+        tdForDestination.appendChild(
+            document.createTextNode(`${JSON.stringify(arrayOfFlights[i].destination).slice(1, -1)}`));
         nextTR.appendChild(tdForDestination);
 
         let tdForPrice = document.createElement("td");
-        tdForPrice.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].priceHUF)}`));
+        tdForPrice.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].priceHUF)}` + " Ft"));
         nextTR.appendChild(tdForPrice);
 
+
         let tdForDeparture = document.createElement("td");
-        tdForDeparture.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].departure)}`));
+        tdForDeparture.appendChild(
+            document.createTextNode(`${JSON.stringify(arrayOfFlights[i].departure).slice(1, 5)}` + "." + `${JSON.stringify(arrayOfFlights[i].departure).slice(6, 8)}` + "." + `${JSON.stringify(arrayOfFlights[i].departure).slice(9, 11)}` + " " + `${JSON.stringify(arrayOfFlights[i].departure).slice(12, 14)}` + ":" + `${JSON.stringify(arrayOfFlights[i].departure).slice(15, 17)}` + " GMT+0" ));
         nextTR.appendChild(tdForDeparture);
 
         let tdForReturn = document.createElement("td");
-        tdForReturn.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].return)}`));
+        tdForReturn.appendChild(document.createTextNode(`${JSON.stringify(arrayOfFlights[i].return).slice(1, 5)}` + "." + `${JSON.stringify(arrayOfFlights[i].return).slice(6, 8)}` + "." + `${JSON.stringify(arrayOfFlights[i].return).slice(9, 11)}` + " " + `${JSON.stringify(arrayOfFlights[i].return).slice(12, 14)}`+ ":" + `${JSON.stringify(arrayOfFlights[i].return).slice(15, 17)}` + " GMT+0" ));
         nextTR.appendChild(tdForReturn);
 
         let tdButton = document.createElement("button");
         tdButton.setAttribute("jsonData", JSON.stringify(arrayOfFlights[i]));
-        tdButton.setAttribute("origin", JSON.stringify(arrayOfFlights[i].Origin))
+        tdButton.setAttribute("origin", JSON.stringify(arrayOfFlights[i].Origin));
         tdButton.id = "AddBTN";
         tdButton.className = "blueBTN";
         tdButton.textContent = "Add";
