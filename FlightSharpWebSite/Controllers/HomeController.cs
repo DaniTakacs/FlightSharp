@@ -10,6 +10,7 @@ using FlightSharpWebSite.Services;
 using FlightSharpWebSite.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using FlightSharpWebSite.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightSharpWebSite.Controllers
 {
@@ -52,8 +53,16 @@ namespace FlightSharpWebSite.Controllers
 
         public IActionResult Profile()
         {
-            ApplicationUser user = _context.Users.SingleOrDefault( u => u.Email == User.Identity.Name);
-
+            ApplicationUser user = _context.Users.Include( u => u.UserAddress).SingleOrDefault( u => u.UserName == User.Identity.Name);
+            if (user == null)
+            {
+                return View();
+            }
+            if (user.UserAddress == null)
+            {
+                user.UserAddress = new UserAddress();
+                _context.SaveChanges();
+            }
             ViewData["Profile"] = user;
             return View();
         }
