@@ -17,11 +17,13 @@ namespace FlightSharpWebSite.Controllers
         {
             try
             {
+                var userName = data.GetProperty("userName").ToString();
                 var firstName = data.GetProperty("firstName").ToString();
                 var lastName = data.GetProperty("lastName").ToString();
                 var email = data.GetProperty("email").ToString();
                 Console.WriteLine("first name: " + firstName);
                 Console.WriteLine("email: " + email);
+                Console.WriteLine("username: " + userName);
             }
             catch (System.Exception)
             {

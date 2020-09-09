@@ -3,9 +3,18 @@ let lastName = document.getElementById("ln");
 let email = document.getElementById("email");
 let saveBtn = document.getElementById("saveBtn");
 
+try {
+    var emailFromSite = document.getElementById("manage").innerText;
+    emailFromSite = emailFromSite.substr(6);
+    console.log(emailFromSite);
+} catch (e) {
+    console.log("No user logged in");
+}
+
 let prevFirstName;
 let prevLastName;
 let prevEmail;
+let prevUserName;
 
 getData();
 
@@ -15,22 +24,31 @@ function getData() {
     prevFirstName = firstName.textContent.replace(/\s/g, '');
     prevLastName = lastName.textContent.replace(/\s/g, '');
     prevEmail = email.textContent.replace(/\s/g, '');
+    prevUserName = email.textContent.replace(/\s/g, '');
 }
 
 function save() {
     let newFN = document.getElementById("fn").textContent.replace(/\s/g, '');
     let newLN = document.getElementById("ln").textContent.replace(/\s/g, '');
     let newEmail = document.getElementById("email").textContent.replace(/\s/g, '');
+    let newUserName = document.getElementById("userN").textContent.replace(/\s/g, '');
 
-    if (prevFirstName != newFN || prevLastName != newLN || prevEmail != newEmail) {
+    if (prevFirstName != newFN || prevLastName != newLN || prevEmail != newEmail || prevUserName != newUserName) {
         var jsonToPost =
         {
+            "userName": newUserName,
             "firstName": newFN,
             "lastName": newLN,
             "email": newEmail
         }
 
         makePostRequest("api/profile", JSON.stringify(jsonToPost));
+
+        prevUserName = newUserName;
+        prevFirstName = newFN;
+        prevLastName = newLN;
+        prevEmail = newEmail;
+
         console.log(jsonToPost);
         console.log("changes saved");
     }

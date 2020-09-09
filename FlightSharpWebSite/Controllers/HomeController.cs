@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FlightSharpWebSite.Models;
 using FlightSharpWebSite.Services;
+using FlightSharpWebSite.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using FlightSharpWebSite.Data;
 
 namespace FlightSharpWebSite.Controllers
 {
@@ -14,11 +17,13 @@ namespace FlightSharpWebSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private SessionService _sessionService;
+        private FlightSharpWebSiteContext _context;
 
-        public HomeController(ILogger<HomeController> logger, SessionService session)
+        public HomeController(ILogger<HomeController> logger, SessionService session, FlightSharpWebSiteContext context)
         {
             _logger = logger;
             _sessionService = session;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -47,10 +52,8 @@ namespace FlightSharpWebSite.Controllers
 
         public IActionResult Profile()
         {
-            User user = new User();
-            user.FristName = "Olic";
-            user.LastName = "G";
-            user.Email = "gaowaak@gmail.com";
+            ApplicationUser user = _context.Users.SingleOrDefault( u => u.Email == User.Identity.Name);
+
             ViewData["Profile"] = user;
             return View();
         }

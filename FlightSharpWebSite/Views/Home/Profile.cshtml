@@ -1,13 +1,20 @@
 ﻿
 @{
     ViewData["Title"] = "Profile";
-    var user = ViewData["Profile"] as FlightSharpWebSite.Models.User;
+    var user = ViewData["Profile"] as ApplicationUser;
 }
+@using Microsoft.AspNetCore.Identity
+@using FlightSharpWebSite.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @section scripts{
     <script src="@Url.Content("~/js/profileEdit.js")" type="text/javascript" defer></script>
 }
 
 <link href="@Url.Content("~/css/profile.css")" rel="stylesheet" type="text/css" />
+@if (SignInManager.IsSignedIn(User))
+{
 <div class="table-box">
     <div class="table-row table-head">
         <div class="table-cell last-cell">
@@ -16,10 +23,18 @@
     </div>
     <div class="table-row">
         <div class="table-cell first-cell">
+            <p>Username</p>
+        </div>
+        <div class="table-cell last-cell" id="userN" contenteditable="true">
+            <p>@User.Identity.Name</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
             <p>First Name</p>
         </div>
         <div class="table-cell last-cell" id="fn" contenteditable="true">
-            @user.FristName
+            <p>@user.FirstName</p>
         </div>
     </div>
     <div class="table-row">
@@ -35,36 +50,17 @@
             <p>E-mail</p>
         </div>
         <div class="table-cell last-cell" id="email" contenteditable="true">
-            @user.Email
-        </div>
-    </div>
-    <div class="table-row">
-        <div class="table-cell first-cell">
-            <p>place</p>
-        </div>
-        <div class="table-cell last-cell">
-            <p>holder</p>
-        </div>
-    </div>
-    <div class="table-row">
-        <div class="table-cell first-cell">
-            <p>place</p>
-        </div>
-        <div class="table-cell last-cell">
-            <p>holder</p>
-        </div>
-    </div>
-    <div class="table-row">
-        <div class="table-cell first-cell">
-            <p>place</p>
-        </div>
-        <div class="table-cell last-cell">
-            <p>holder</p>
+            <p>@user.Email</p>
         </div>
     </div>
 </div>
-<div id="buttonDiv">
-    <button type="button" id="saveBtn">
-        <h2>Save</h2>
-    </button>
-</div>
+    <div id="buttonDiv">
+        <button type="button" id="saveBtn">
+            <h2>Save</h2>
+        </button>
+    </div>
+}
+else
+{
+    <h1>Please log in or register!</h1>
+}
