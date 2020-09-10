@@ -23,10 +23,10 @@
     </div>
     <div class="table-row">
         <div class="table-cell first-cell">
-            <p>Username</p>
+            <p>Account Name</p>
         </div>
-        <div class="table-cell last-cell" id="userN" contenteditable="true">
-            <p>@User.Identity.Name</p>
+        <div class="table-cell last-cell" id="accN" contenteditable="true">
+            <p>@user.AccountName</p>
         </div>
     </div>
     <div class="table-row">
@@ -51,6 +51,30 @@
         </div>
         <div class="table-cell last-cell" id="email" contenteditable="true">
             <p>@user.Email</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>City</p>
+        </div>
+        <div class="table-cell last-cell" id="city" contenteditable="true">
+            <p>@user.UserAddress.City</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Street</p>
+        </div>
+        <div class="table-cell last-cell" id="str" contenteditable="true">
+            <p>@user.UserAddress.Street</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Street Number</p>
+        </div>
+        <div class="table-cell last-cell" id="strNum" contenteditable="true">
+            <p>@user.UserAddress.StreetNumber</p>
         </div>
     </div>
 </div>

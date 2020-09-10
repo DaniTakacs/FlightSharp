@@ -4,14 +4,16 @@ using FlightSharpWebSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightSharpWebSite.Migrations
 {
     [DbContext(typeof(FlightSharpWebSiteContext))]
-    partial class FlightSharpWebSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20200909092929_MaxLength")]
+    partial class MaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,70 +96,6 @@ namespace FlightSharpWebSite.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Cart", b =>
-                {
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CartId");
-
-                    b.ToTable("Cart");
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Flight", b =>
-                {
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AirLine")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Departure")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Destination")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FlightNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Origin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PriceHUF")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Return")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("FlightId");
-
-                    b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Ticket", b =>
-                {
-                    b.Property<int>("TicketId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("TicketId");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("FlightSharpWebSite.Models.UserAddress", b =>
@@ -323,31 +261,6 @@ namespace FlightSharpWebSite.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Cart", b =>
-                {
-                    b.HasOne("FlightSharpWebSite.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
-                        .WithOne("Cart")
-                        .HasForeignKey("FlightSharpWebSite.Models.Cart", "CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Flight", b =>
-                {
-                    b.HasOne("FlightSharpWebSite.Models.Ticket", "Ticket")
-                        .WithOne("Flight")
-                        .HasForeignKey("FlightSharpWebSite.Models.Flight", "FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FlightSharpWebSite.Models.Ticket", b =>
-                {
-                    b.HasOne("FlightSharpWebSite.Models.Cart", "Cart")
-                        .WithMany("Tickets")
-                        .HasForeignKey("CartId");
                 });
 
             modelBuilder.Entity("FlightSharpWebSite.Models.UserAddress", b =>
