@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using FlightSharpWebSite.Areas.Identity.Data;
 
 namespace FlightSharpWebSite.Models
 {
     public class Cart
     {
-        public List<Flight> BookedFlights;
+        //public List<Flight> BookedFlights;
+        //
+        public string CartId { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
 
 
         public Cart()
@@ -41,7 +46,8 @@ namespace FlightSharpWebSite.Models
 
         public void DeleteFromCart(Flight flight)
         {
-            Tickets.RemoveAll(x => x.Flight.Equals(flight));
+            var ticket = Tickets.Where(t => t.Flight.Equals(flight)).FirstOrDefault();
+            Tickets.Remove(ticket);
         }
 
         public void UpdateQuantity(Flight flight, int quantity)

@@ -13,5 +13,7 @@ namespace FlightSharpWebSite.Areas.Identity.Data
         public string LastName { get; set; }
         public UserAddress UserAddress { get; set; }
 
+        public Cart Cart { get; set; }
+
     }
 }
