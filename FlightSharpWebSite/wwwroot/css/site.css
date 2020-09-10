@@ -7,9 +7,9 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-.navbar {
-    background-color: #2E2A45;
-}
+.navbar { background-color: #2E2A45; }
+
+.navbar-user-item { font-size: 120%; }
 
 /* Provide sufficient contrast against white background */
 
@@ -72,7 +72,7 @@ button {
     border-color: #5D2971;
 }
 
-.table { }
+.table { border-radius: 25px; }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #EFEFF6;
@@ -111,7 +111,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #5A5F82;
+    background-color: #454a6e;
 }
 
 .footer {

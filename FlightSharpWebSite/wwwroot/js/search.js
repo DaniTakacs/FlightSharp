@@ -104,7 +104,7 @@ const createAndSetFlightsHTML = function (arrayOfFlights) {
         divForResults.removeChild(divForResults.firstChild);
     }
 
-    // create table with header
+    // create table with header 
     let table = document.createElement("table");
     table.className = "table table-search";
     let header = document.createElement("tr");
