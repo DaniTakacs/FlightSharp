@@ -28,15 +28,15 @@ namespace FlightSharpWebSite.Controllers
 
         public IActionResult Index()
         {
-            var cart = _sessionService.GetSessionObject<Cart>("Cart");
+            //var cart = _sessionService.GetSessionObject<Cart>("Cart");
 
-            if (cart == null)
-            {
-                cart = new Cart();
+            //if (cart == null)
+            //{
+            //    cart = new Cart();
 
-                _sessionService.SetSessionString("userName", "anonym");
-                _sessionService.SetSessionObject("Cart", cart);
-            }
+            //    _sessionService.SetSessionString("userName", "anonym");
+            //    _sessionService.SetSessionObject("Cart", cart);
+            //}
             return View();
         }
 

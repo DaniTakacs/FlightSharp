@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Cart";
-    var cart = ViewData["Cart"] as FlightSharpWebSite.Models.Cart;
+    //var cart = ViewData["Cart"] as FlightSharpWebSite.Models.Cart;
+    @model FlightSharpWebSite.Models.ViewModels.CartViewModel
 }
 
 <h1>View</h1>
@@ -15,7 +16,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in cart.Tickets)
+    @foreach (var item in Model.Tickets)
     {
         <tr data-json="@System.Text.Json.JsonSerializer.Serialize(item)" data-expire="@item.Flight.ExpirationDate">
             <td>
