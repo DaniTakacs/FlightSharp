@@ -13,6 +13,7 @@ using FlightSharpWebSite.Models;
 using FlightSharpWebSite.Models.ViewModels;
 using FlightSharpWebSite.Services;
 using FlightSharpWebSite.Util;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,11 @@ namespace FlightSharpWebSite.Controllers
                         .ThenInclude(c => c.Tickets)
                         .ThenInclude(t => t.Flight)
                         .SingleOrDefault(u => u.Id == userId);
+
+                    if (user.Cart == null)
+                    {
+                        user.Cart = new Cart();
+                    }
 
                     var tickets = from ticket in user.Cart.Tickets
                                   select new TicketViewModel
@@ -110,11 +116,13 @@ namespace FlightSharpWebSite.Controllers
         [HttpPost("cart")]
         public IActionResult AddFlight(dynamic data)
         {
-            Flight flightObject;
+            Cart cart = new Cart();
+            Flight flightModel;
+            FlightViewModel flightVM;
             int quantity;
-            var cart = _sessionService.GetSessionObject<Cart>("Cart");
+            var cartVM = _sessionService.GetSessionObject<CartViewModel>("Cart");
 
-            if (cart == null)
+            if (cartVM == null)
             {
                 return NotFound();
             }
@@ -129,12 +137,65 @@ namespace FlightSharpWebSite.Controllers
                 // So code in the if block below always returns true.
                 // Need to add restrictions to the Cart class,
                 // to have a minimum necessary properties.
-                flightObject = JsonSerializer.Deserialize<Flight>(flight);
+                flightVM = JsonSerializer.Deserialize<FlightViewModel>(flight);
 
-                if (!cart.AddToCart(flightObject, quantity))
+                flightModel = new Flight
+                {
+                    FlightId = flightVM.FlightId,
+                    Return = flightVM.Return,
+                    PriceHUF = flightVM.PriceHUF,
+                    Origin = flightVM.Origin,
+                    Destination = flightVM.Destination,
+                    Departure = flightVM.Departure,
+                    FlightNo = flightVM.FlightNo,
+                    AirLine = flightVM.AirLine,
+                    ExpirationDate = flightVM.ExpirationDate
+                };
+                var ticketModel = from ticket in cartVM.Tickets
+                                    select new Ticket
+                                    {
+                                        Quantity = ticket.Quantity,
+                                        Flight = new Flight
+                                        {
+                                            FlightId = ticket.Flight.FlightId,
+                                            Return = ticket.Flight.Return,
+                                            PriceHUF = ticket.Flight.PriceHUF,
+                                            Origin = ticket.Flight.Origin,
+                                            Destination = ticket.Flight.Destination,
+                                            Departure = ticket.Flight.Departure,
+                                            FlightNo = ticket.Flight.FlightNo,
+                                            AirLine = ticket.Flight.AirLine,
+                                            ExpirationDate = ticket.Flight.ExpirationDate
+                                        }
+                                    };
+                cart = new Cart() { Tickets = ticketModel.ToList() };
+
+                
+                if (!cart.AddToCart(flightModel, quantity))
                 {
                     // this actually could happen either due to server error or bad query
                     return StatusCode(500);
+                } 
+                else
+                {
+                    var ticketBackComp = from ticket in cart.Tickets
+                                      select new TicketViewModel
+                                      {
+                                          Quantity = ticket.Quantity,
+                                          Flight = new FlightViewModel
+                                          {
+                                              FlightId = ticket.Flight.FlightId,
+                                              Return = ticket.Flight.Return,
+                                              PriceHUF = ticket.Flight.PriceHUF,
+                                              Origin = ticket.Flight.Origin,
+                                              Destination = ticket.Flight.Destination,
+                                              Departure = ticket.Flight.Departure,
+                                              FlightNo = ticket.Flight.FlightNo,
+                                              AirLine = ticket.Flight.AirLine,
+                                              ExpirationDate = ticket.Flight.ExpirationDate
+                                          }
+                                      };
+                    cartVM.Tickets = ticketBackComp.ToList();
                 }
             }
             catch (System.Exception)
@@ -156,7 +217,7 @@ namespace FlightSharpWebSite.Controllers
                     user.Cart = new Cart();
                 }
 
-                var selectedTicket = user.Cart.Tickets.Where(t => t.Flight.Equals(flightObject)).FirstOrDefault();
+                var selectedTicket = user.Cart.Tickets.Where(t => t.Flight.Equals(flightVM)).FirstOrDefault();
                 if (selectedTicket != null)
                 {
                     selectedTicket.Quantity += quantity;
@@ -166,7 +227,7 @@ namespace FlightSharpWebSite.Controllers
                     var ticket = new Ticket
                     {
                         Quantity = 1,
-                        Flight = flightObject
+                        Flight = flightModel
                     };
                     user.Cart.Tickets.Add(ticket);
                 }
@@ -174,7 +235,7 @@ namespace FlightSharpWebSite.Controllers
                 _context.SaveChanges();
             }
 
-            _sessionService.SetSessionObject("Cart", cart);
+            _sessionService.SetSessionObject("Cart", cartVM);
             return Ok();
         }
 
