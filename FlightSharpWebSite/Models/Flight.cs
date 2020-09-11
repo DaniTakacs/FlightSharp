@@ -35,6 +35,11 @@ namespace FlightSharpWebSite.Models
         [JsonProperty("expires_at")]
         public DateTime ExpirationDate { get; set; }
 
+        // nav props
+        public int FlightId { get; set; }
+        public Ticket Ticket { get; set; }
+
+
         public Flight()
         {
 

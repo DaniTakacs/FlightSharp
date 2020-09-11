@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 using FlightSharpWebSite.Areas.Identity.Data;
@@ -31,6 +32,8 @@ namespace FlightSharpWebSite.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            HttpContext.Session.Remove("Cart");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);

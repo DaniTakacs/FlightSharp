@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Cart";
-    var cart = ViewData["Cart"] as FlightSharpWebSite.Models.Cart;
+    //var cart = ViewData["Cart"] as FlightSharpWebSite.Models.Cart;
+    @model FlightSharpWebSite.Models.ViewModels.CartViewModel
 }
 
 <h1>View</h1>
@@ -8,20 +9,20 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Flight</th>
-        <th>Price</th>
-        <th>Quantity</th>
+        <th class="cart-head">Flight</th>
+        <th class="cart-head">Price</th>
+        <th class="cart-head">Quantity</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in cart.Tickets)
+    @foreach (var item in Model.Tickets)
     {
-        <tr data-json="@System.Text.Json.JsonSerializer.Serialize(item)" data-expire="@item.Flight.ExpirationDate">
+        <tr class="cart-row" data-json="@System.Text.Json.JsonSerializer.Serialize(item)" data-expire="@item.Flight.ExpirationDate">
             <td>
                 <div style="display: flex; flex-direction: column;">
-                    <h5> @item.Flight.Origin - @item.Flight.Destination</h5>
-                    <span>Departure: <strong>@Html.DisplayFor(m => item.Flight.Departure)</strong></span>
+                    <h5 class="cart-oring"> @item.Flight.Origin - @item.Flight.Destination</h5>
+                    <span class="cart-item-data">Departure: <strong>@Html.DisplayFor(m => item.Flight.Departure)</strong></span>
                     <span>Return: <strong>@Html.DisplayFor(m => item.Flight.Return)</strong></span>
                     <span>@item.Flight.AirLine</span>
                 </div>

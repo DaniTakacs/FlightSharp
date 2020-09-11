@@ -1,5 +1,4 @@
-﻿body {
-}
+﻿body { }
 
 .table-box {
     margin: 50px auto;
@@ -16,7 +15,8 @@
     padding: 12px 0;
     color: #8C92AC;
     font-size: 13px;
-    box-shadow: 0 1px 4px 0 rgba(0,0,50,0.3);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 50, 0.3);
+    transition: all .2s ease-in-out;
 }
 
 .table-cell {
@@ -30,15 +30,13 @@
 }
 
 .table-head {
-    background: #f44336;
+    background: #9A73A9;
     box-shadow: none;
     color: #fff;
     font-weight: 600;
 }
 
-    .table-head .table-cell {
-        border-right: none;
-    }
+.table-head .table-cell { border-right: none; }
 
 .last-cell {
     width: 70%;
@@ -53,8 +51,8 @@
 
 .table-row:hover {
     transform: scale(1.06);
-    background: #8C92AC;
-    color: #1b6ec2;
+    background: #CEC6E1;
+    color: white;
 }
 
 #buttonDiv {
@@ -64,7 +62,7 @@
 
 #saveBtn {
     border-radius: 15px 50px 30px;
-    background-color: #4CAF50;
+    background-color: #C2C759;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -72,9 +70,10 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    transition: all .2s ease-in-out;
 }
 
     #saveBtn:hover {
         transform: scale(1.06);
-        background: #8C92AC;
+        background: #CEC6E1;
     }

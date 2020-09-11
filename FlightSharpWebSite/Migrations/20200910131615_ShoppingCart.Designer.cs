@@ -4,14 +4,16 @@ using FlightSharpWebSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightSharpWebSite.Migrations
 {
     [DbContext(typeof(FlightSharpWebSiteContext))]
-    partial class FlightSharpWebSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20200910131615_ShoppingCart")]
+    partial class ShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,10 +29,6 @@ namespace FlightSharpWebSite.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AccountName")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -43,12 +41,10 @@ namespace FlightSharpWebSite.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -166,24 +162,19 @@ namespace FlightSharpWebSite.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(6)")
-                        .HasMaxLength(6);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetNumber")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserAddressId");
 

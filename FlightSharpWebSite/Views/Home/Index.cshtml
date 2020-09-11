@@ -1,8 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<link href="@Url.Content("~/css/index.css")" rel="stylesheet" type="text/css" />
 
 <div class="text-center">
+
+    <br />
+    <br />
+    <br />
+    <br />
     <h1 class="display-4">Welcome to the FlightSharp website</h1>
-    <p>Click here to begin search <a class="nav-link text-dark" asp-controller="Home" asp-action="Search">Search</a></p>
+    <p> <a class="nav-link" asp-controller="Home" asp-action="Search">Click here to begin your epic journey</a></p>
 </div>
