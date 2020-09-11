@@ -2,70 +2,122 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
+.navbar { background-color: #2E2A45; }
+
+.navbar-user-item { font-size: 120%; }
+
 /* Provide sufficient contrast against white background */
+
 a {
-  color: #0366d6;
+    color: #EFEFF6;
+    transition: all .2s ease-in-out;
+}
+
+a:hover {
+    color: #AA9939;
+    text-decoration: none;
+    transform: scale(1.1);
+}
+
+.nav-link {
+    color: #efeff6;
+    transition: all .2s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #aa9939;
+    transform: scale(1.1);
+}
+
+h1 { color: #efeff6 }
+
+h4 { color: #efeff6; }
+
+label { color: #efeff6; }
+
+section { color: #efeff6; }
+
+.footer_item { color: #FEF7E8 }
+
+
+
+.cart-head { color: #efeff6 }
+
+.cart-row { color: #efeff6 }
+
+.cart-origin { color: #efeff6 }
+
+.cart-item-data { color: #efeff6 }
+
+button {
+    border: none;
+    padding: 0;
+    background-color: transparent
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #EFEFF6;
+    background-color: #9A73A9;
+    border-color: #9A73A9;
 }
+
+.btn-primary:hover {
+    color: #EFEFF6;
+    background-color: #5D2971;
+    border-color: #5D2971;
+}
+
+.table { border-radius: 25px; }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #EFEFF6;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
-}
+
+html { font-size: 14px; }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html { font-size: 16px; }
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+.border-top { border-top: 1px solid #e5e5e5; }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #454a6e;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }

@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    var user = ViewData["Profile"] as ApplicationUser;
+}
+@using Microsoft.AspNetCore.Identity
+@using FlightSharpWebSite.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@section scripts{
+    <script src="@Url.Content("~/js/profileEdit.js")" type="text/javascript" defer></script>
+}
+
+<link href="@Url.Content("~/css/profile.css")" rel="stylesheet" type="text/css" />
+@if (SignInManager.IsSignedIn(User))
+{
+<div class="table-box">
+    <div class="table-row table-head">
+        <div class="table-cell last-cell">
+            <p>Profile Information</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Account Name</p>
+        </div>
+        <div class="table-cell last-cell" id="accN" contenteditable="true">
+            <p>@user.AccountName</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>First Name</p>
+        </div>
+        <div class="table-cell last-cell" id="fn" contenteditable="true">
+            <p>@user.FirstName</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Last Name</p>
+        </div>
+        <div class="table-cell last-cell" id="ln" contenteditable="true">
+            <p>@user.LastName</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>E-mail</p>
+        </div>
+        <div class="table-cell last-cell" id="email" contenteditable="true">
+            <p>@user.Email</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>City</p>
+        </div>
+        <div class="table-cell last-cell" id="city" contenteditable="true">
+            <p>@user.UserAddress.City</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Street</p>
+        </div>
+        <div class="table-cell last-cell" id="str" contenteditable="true">
+            <p>@user.UserAddress.Street</p>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-cell first-cell">
+            <p>Street Number</p>
+        </div>
+        <div class="table-cell last-cell" id="strNum" contenteditable="true">
+            <p>@user.UserAddress.StreetNumber</p>
+        </div>
+    </div>
+</div>
+    <div id="buttonDiv">
+        <button type="button" id="saveBtn">
+            <h2>Save</h2>
+        </button>
+    </div>
+}
+else
+{
+    <h1>Please log in or register!</h1>
+}

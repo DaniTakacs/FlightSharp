@@ -6,25 +6,64 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FlightSharpWebSite.Models;
+using FlightSharpWebSite.Services;
+using FlightSharpWebSite.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using FlightSharpWebSite.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightSharpWebSite.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private SessionService _sessionService;
+        private FlightSharpWebSiteContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SessionService session, FlightSharpWebSiteContext context)
         {
             _logger = logger;
+            _sessionService = session;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            //var cart = _sessionService.GetSessionObject<Cart>("Cart");
+
+            //if (cart == null)
+            //{
+            //    cart = new Cart();
+
+            //    _sessionService.SetSessionString("userName", "anonym");
+            //    _sessionService.SetSessionObject("Cart", cart);
+            //}
             return View();
         }
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
+            ApplicationUser user = _context.Users.Include( u => u.UserAddress).SingleOrDefault( u => u.UserName == User.Identity.Name);
+            if (user == null)
+            {
+                return View();
+            }
+            if (user.UserAddress == null)
+            {
+                user.UserAddress = new UserAddress();
+                _context.SaveChanges();
+            }
+            ViewData["Profile"] = user;
             return View();
         }
 

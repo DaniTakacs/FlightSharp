@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Search";
+}
+@section scripts{
+    <script src="@Url.Content("~/js/search.js")" type="text/javascript" defer></script>
+}
+
+
+<link href="@Url.Content("~/css/search.css")" rel="stylesheet" type="text/css" />
+<br />
+<br />
+<br />
+<br />
+<div class="divInputs">
+    <h1>Please give us the following flight details!</h1>
+    <input class="input" id="from" maxlength="3" placeholder="Departure" />
+    <br>
+    <input class="input" id="to" maxlength="3" placeholder="Destination" />
+    <br>
+    <input class="input" id="maxPrice" maxlength="8" step="1000" type="number" placeholder="Maximum price (HUF)" />
+    <br>
+    <button class="searchBTN" id="search">Search</button>
+</div>
+<div id="showResults">
+
+</div>

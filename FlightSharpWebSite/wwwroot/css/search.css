@@ -1,0 +1,123 @@
+﻿body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+h1 {
+    font-family: Arial, 'Times New Roman';
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+    font-weight: 100;
+}
+
+button:focus { outline: 0 !important; }
+
+.divInputs {
+    width: 580px;
+    max-width: 580px;
+    height: 220px;
+    max-height: 220px;
+    vertical-align: middle;
+    margin: 0 auto;
+    border: 5px outset transparent;
+    background-color: transparent;
+    text-align: center;
+    box-shadow: 0 1rem 1rem rgba(10, 1, 0, .1);
+    margin-bottom: 100px;
+}
+
+h1 { color: #efeff6 }
+
+.input {
+    font-size: 14px;
+    text-align: center;
+    transition: all .2s ease-in-out;
+}
+
+.input:focus {
+    transform: scale(1.1);
+    outline: 0 !important;
+}
+
+
+
+.searchBTN {
+    margin-top: 10px;
+    color: #EFEFF6;
+    background-color: #9A73A9;
+    border-color: #9A73A9;
+    border-radius: 12px;
+    padding: 14px 40px;
+    transition: 0.3s;
+    outline: none;
+    font-weight: bold;
+}
+
+.searchBTN:hover {
+    color: #EFEFF6;
+    background-color: #5D2971;
+    border-color: #5D2971;
+    border-radius: 12px;
+    padding: 14px 40px;
+}
+
+
+.blueBTN {
+    margin-top: 10px;
+    color: #EFEFF6;
+    background-color: #9A73A9;
+    border-color: #9A73A9;
+    padding: 8px 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.blueBTN:hover {
+    color: #EFEFF6;
+    background-color: #5D2971;
+    border-color: #5D2971;
+    padding: 8px 18px;
+    border-radius: 8px;
+}
+
+.divResults {
+    width: 580px;
+    max-width: 580px;
+    height: 220px;
+    max-height: 220px;
+    vertical-align: middle;
+    margin: 0 auto;
+    border: 5px outset transparent;
+    background-color: transparent;
+    text-align: center;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #9A73A9;
+    color: white;
+}
+
+tr:nth-child(even) { background-color: #f2f2f2; }
+
+tr:nth-child(odd) { background-color: #f2f2f2; }
+
+tr:hover { background-color: #f5f5f5; }
+
+.table-search {
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 25px!important;
+}
+
+#showResults { border-radius: 25px; }
